@@ -1,0 +1,281 @@
+openapi: 3.1.0
+info:
+  title: api
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /resources:
+    post:
+      summary: Create New Resource
+      operationId: post-resource
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/Document'
+                  - $ref: '#/components/schemas/URL'
+                  - $ref: '#/components/schemas/File'
+              examples:
+                Document:
+                  value:
+                    type: document
+                    name: 도큐먼트
+                    metadata:
+                      doctype: doc
+                      creator: 작성자1
+                      origin: '123'
+                    id: '123111'
+                File:
+                  value:
+                    type: file
+                    name: string
+                    metadata:
+                      path: foo/boo/example.pdf
+                      mimeType: application/pdf
+                      size: 12345
+                    id: string
+                URL:
+                  value:
+                    type: url
+                    name: url리소스
+                    metadata:
+                      uri: 'https://naver.com/news'
+                    id: '12333'
+        '400':
+          description: Missing Required Information
+        '500':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contentType:
+                  type: string
+                  description: 리소스의 컨텐츠 타입
+                target:
+                  type: string
+                  description: 타겟의 URI 패스
+                name:
+                  type: string
+                  description: 사용자가 지정한 이름
+              required:
+                - contentType
+                - target
+                - name
+            examples:
+              url:
+                value:
+                  contentType: plain/text
+                  target: 'https://naver.com/news/123'
+                  name: 네이버
+              document:
+                value:
+                  contentType: application/vnd.google-apps.document
+                  target: 'https://docs.google.com/1231/3211'
+                  name: 도큐먼트
+              file:
+                value:
+                  contentType: applicaation/pdf
+                  target: example.pdf
+                  name: example_pdf
+        description: Post the necessary fields for the API to create a new resource.
+      description: Create a new resource.
+    parameters: []
+    get:
+      summary: ''
+      operationId: get-resource
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/Document'
+                    - $ref: '#/components/schemas/URL'
+                    - $ref: '#/components/schemas/File'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - document
+              - file
+              - url
+          in: query
+          name: type
+          description: 없다면 모든 타입의 리소스를 가져온다
+  /resources/link:
+    post:
+      summary: ''
+      operationId: post-resource-link
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: ''
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+    parameters: []
+  '/resources/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: 리소스 ID
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/Document'
+                  - $ref: '#/components/schemas/URL'
+                  - $ref: '#/components/schemas/File'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-resources-id
+components:
+  schemas:
+    Document:
+      title: Document
+      type: object
+      description: ''
+      examples: []
+      properties:
+        type:
+          type: string
+          pattern: document
+        name:
+          type: string
+        metadata:
+          type: object
+          required:
+            - doctype
+            - creator
+            - origin
+          properties:
+            doctype:
+              type: string
+            creator:
+              type: string
+            origin:
+              type: string
+        id:
+          type: string
+      required:
+        - type
+        - name
+        - metadata
+        - id
+    URL:
+      title: URL
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        metadata:
+          type: object
+          required:
+            - path
+          properties:
+            path:
+              type: string
+        type:
+          type: string
+          pattern: url
+      required:
+        - id
+        - name
+        - metadata
+        - type
+    File:
+      title: File
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        metadata:
+          type: object
+          required:
+            - path
+            - mimeType
+            - size
+          properties:
+            path:
+              type: string
+            mimeType:
+              type: string
+            size:
+              type: number
+        file:
+          type: string
+          pattern: file
+      required:
+        - id
+        - name
+        - metadata
+        - file
+  requestBodies:
+    ResourceCreation:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              contentType:
+                type: string
+                description: 리소스의 컨텐츠 타입
+              target:
+                type: string
+                description: 타겟의 URI 패스
+              name:
+                type: string
+                description: 사용자가 지정한 이름
+            required:
+              - contentType
+              - target
+              - name
+          examples:
+            url:
+              value:
+                contentType: plain/text
+                target: 'https://naver.com/news/123'
+                name: 네이버
+            document:
+              value:
+                contentType: application/vnd.google-apps.document
+                target: 'https://docs.google.com/1231/3211'
+                name: 도큐먼트
+            file:
+              value:
+                contentType: applicaation/pdf
+                target: example.pdf
+                name: example_pdf
