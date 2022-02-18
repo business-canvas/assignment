@@ -119,13 +119,6 @@ paths:
       responses:
         '201':
           description: Created
-          content:
-            application/json:
-              schema:
-                anyOf:
-                  - $ref: '#/components/schemas/Document'
-                  - $ref: '#/components/schemas/URL'
-                  - $ref: '#/components/schemas/File'
         '400':
           description: Bad Request
         '500':
@@ -163,6 +156,28 @@ components:
       title: Document
       type: object
       description: ''
+      x-examples:
+        Document:
+          type: document
+          name: "도큐먼트\U0001F604"
+          metadata:
+            doctype: doc
+            creator: 작성자
+            origin: 123_origin
+          id: '123444'
+          links:
+            - id: '1234'
+              name: URL리소스
+              metadata:
+                path: 'https://nave.com/news'
+              type: url
+            - id: '1235'
+              name: example.pdf
+              metadata:
+                path: foo/boo/example.pdf
+                mimeType: application/pdf
+                size: 10
+              file: file
       properties:
         type:
           type: string
@@ -184,20 +199,17 @@ components:
               type: string
         id:
           type: string
+        links:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/URL'
+              - $ref: '#/components/schemas/File'
       required:
         - type
         - name
         - metadata
         - id
-      x-examples:
-        Document:
-          type: document
-          name: 도큐먼트
-          metadata:
-            doctype: doc
-            creator: 작성자1
-            origin: paramId123
-          id: '1234'
     URL:
       title: URL
       type: object
@@ -266,3 +278,4 @@ components:
             mimeType: application/pdf
             size: 0
           file: file
+
