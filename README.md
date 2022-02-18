@@ -31,6 +31,8 @@
     - spreadsheet ⇒ sheet    
   - creator    
     - 랜덤 string 값
+  - origin
+    - 랜덤 string 값
 #### Document 리소스
  - 그밖의 모든 데이터는 URL형식으로 저장하시면 됩니다.
  - Youtube URL일 경우 uri를 https://youtu.be/embed/{paramId}로 변경해서 저장해 주세요
