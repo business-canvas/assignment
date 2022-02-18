@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: api
   version: '1.0'
@@ -19,32 +19,6 @@ paths:
                   - $ref: '#/components/schemas/Document'
                   - $ref: '#/components/schemas/URL'
                   - $ref: '#/components/schemas/File'
-              examples:
-                Document:
-                  value:
-                    type: document
-                    name: 도큐먼트
-                    metadata:
-                      doctype: doc
-                      creator: 작성자1
-                      origin: '123'
-                    id: '123111'
-                File:
-                  value:
-                    type: file
-                    name: string
-                    metadata:
-                      path: foo/boo/example.pdf
-                      mimeType: application/pdf
-                      size: 12345
-                    id: string
-                URL:
-                  value:
-                    type: url
-                    name: url리소스
-                    metadata:
-                      uri: 'https://naver.com/news'
-                    id: '12333'
         '400':
           description: Missing Required Information
         '500':
@@ -68,7 +42,7 @@ paths:
                 - contentType
                 - target
                 - name
-            examples:
+            x-examples:
               url:
                 value:
                   contentType: plain/text
@@ -98,10 +72,32 @@ paths:
               schema:
                 type: array
                 items:
-                  allOf:
+                  anyOf:
                     - $ref: '#/components/schemas/Document'
                     - $ref: '#/components/schemas/URL'
                     - $ref: '#/components/schemas/File'
+              x-examples:
+                ResourceLIst:
+                  value:
+                    - type: document
+                      name: 도큐먼트
+                      metadata:
+                        doctype: doc
+                        creator: 작성자1
+                        origin: paramId123
+                      id: '1234'
+                    - id: '12345'
+                      name: URL리소스
+                      metadata:
+                        path: 'https://nave.com/news'
+                      type: url
+                    - id: '12346'
+                      name: example.pdf
+                      metadata:
+                        path: foo/boo/example.pdf
+                        mimeType: application/pdf
+                        size: 0
+                      file: file
         '400':
           description: Bad Request
         '500':
@@ -126,7 +122,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ''
+                anyOf:
+                  - $ref: '#/components/schemas/Document'
+                  - $ref: '#/components/schemas/URL'
+                  - $ref: '#/components/schemas/File'
         '400':
           description: Bad Request
         '500':
@@ -164,7 +163,6 @@ components:
       title: Document
       type: object
       description: ''
-      examples: []
       properties:
         type:
           type: string
@@ -191,6 +189,15 @@ components:
         - name
         - metadata
         - id
+      x-examples:
+        Document:
+          type: document
+          name: 도큐먼트
+          metadata:
+            doctype: doc
+            creator: 작성자1
+            origin: paramId123
+          id: '1234'
     URL:
       title: URL
       type: object
@@ -214,6 +221,13 @@ components:
         - name
         - metadata
         - type
+      x-examples:
+        URL:
+          id: '1234'
+          name: URL리소스
+          metadata:
+            path: 'https://nave.com/news'
+          type: url
     File:
       title: File
       type: object
@@ -243,39 +257,12 @@ components:
         - name
         - metadata
         - file
-  requestBodies:
-    ResourceCreation:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              contentType:
-                type: string
-                description: 리소스의 컨텐츠 타입
-              target:
-                type: string
-                description: 타겟의 URI 패스
-              name:
-                type: string
-                description: 사용자가 지정한 이름
-            required:
-              - contentType
-              - target
-              - name
-          examples:
-            url:
-              value:
-                contentType: plain/text
-                target: 'https://naver.com/news/123'
-                name: 네이버
-            document:
-              value:
-                contentType: application/vnd.google-apps.document
-                target: 'https://docs.google.com/1231/3211'
-                name: 도큐먼트
-            file:
-              value:
-                contentType: applicaation/pdf
-                target: example.pdf
-                name: example_pdf
+      x-examples:
+        File:
+          id: '1234'
+          name: example.pdf
+          metadata:
+            path: foo/boo/example.pdf
+            mimeType: application/pdf
+            size: 0
+          file: file
