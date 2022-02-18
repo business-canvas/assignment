@@ -35,7 +35,7 @@
     - 랜덤 string 값
 #### URL 리소스
  - 그밖의 모든 데이터는 URL형식으로 저장하시면 됩니다.
- - 호스트가 Youtube(https://www.youtube.com/watch?v=-{paramId}는 uri를 https://youtu.be/embed/{paramId}로 변경해서 저장해 주세요
+ - 호스트가 Youtube(https://www.youtube.com/watch?v=-{paramId} 는 uri를 https://youtu.be/embed/{paramId} 로 변경해서 저장해 주세요
  - protocol이 없거나 http인 URL은 [https://를](https://를) 붙여서 저장 
  - encodeURI는 decode해서 저장해 주세요.
 
