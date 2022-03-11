@@ -58,6 +58,12 @@ paths:
                   contentType: applicaation/pdf
                   target: example.pdf
                   name: example_pdf
+            examples:
+              example-1:
+                value:
+                  contentType: string
+                  target: string
+                  name: string
         description: Post the necessary fields for the API to create a new resource.
       description: Create a new resource.
     parameters: []
@@ -121,8 +127,24 @@ paths:
           description: Created
         '400':
           description: Bad Request
+        '401':
+          description: Unauthorized
         '500':
           description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+              required:
+                - from
+                - to
+      description: ''
     parameters: []
   '/resources/{id}':
     parameters:
@@ -278,4 +300,3 @@ components:
             mimeType: application/pdf
             size: 0
           file: file
-
