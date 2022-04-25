@@ -265,6 +265,15 @@ components:
     File:
       title: File
       type: object
+      x-examples:
+        File:
+          id: '1234'
+          name: example.pdf
+          metadata:
+            path: foo/boo/example.pdf
+            mimeType: application/pdf
+            size: 0
+          file: file
       properties:
         id:
           type: string
@@ -286,17 +295,12 @@ components:
         file:
           type: string
           pattern: file
+        type:
+          type: string
+          pattern: file
       required:
         - id
         - name
         - metadata
         - file
-      x-examples:
-        File:
-          id: '1234'
-          name: example.pdf
-          metadata:
-            path: foo/boo/example.pdf
-            mimeType: application/pdf
-            size: 0
-          file: file
+        - type
