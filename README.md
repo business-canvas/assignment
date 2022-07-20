@@ -18,15 +18,6 @@
 
 ### 리소스 저장
 
-#### File 리소스
-
-- 패스는 foo/boo/{randomString}.{ext}로 변환해 주세요
-- size는 랜덤으로 넣어주시면 됩니다.
-- File 형식으로 저장하는 대상은 다음과 같습니다.
-  - application/pdf, application/octet-stream
-  - image/png등 이미지 파일
-  - video/mp4등 비디오 파일
-
 #### Document 리소스
 
 - Document 형식으로 저장하는 대상은 다음과 같습니다.
