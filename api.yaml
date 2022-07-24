@@ -18,7 +18,6 @@ paths:
                 anyOf:
                   - $ref: '#/components/schemas/Document'
                   - $ref: '#/components/schemas/URL'
-                  - $ref: '#/components/schemas/File'
               examples: {}
         '400':
           description: Bad Request
@@ -54,11 +53,6 @@ paths:
                   contentType: application/vnd.google-apps.document
                   target: 'https://docs.google.com/1231/3211'
                   name: 도큐먼트
-              file:
-                value:
-                  contentType: applicaation/pdf
-                  target: example.pdf
-                  name: example_pdf
             examples: {}
         description: Post the necessary fields for the API to create a new resource.
       description: Create a new resource.
@@ -77,7 +71,6 @@ paths:
                   anyOf:
                     - $ref: '#/components/schemas/Document'
                     - $ref: '#/components/schemas/URL'
-                    - $ref: '#/components/schemas/File'
               x-examples:
                 ResourceLIst:
                   value:
@@ -93,13 +86,6 @@ paths:
                       metadata:
                         path: 'https://nave.com/news'
                       type: url
-                    - id: '12346'
-                      name: example.pdf
-                      metadata:
-                        path: foo/boo/example.pdf
-                        mimeType: application/pdf
-                        size: 0
-                      file: file
               examples: {}
         '400':
           description: Bad Request
@@ -110,7 +96,6 @@ paths:
             type: string
             enum:
               - document
-              - file
               - url
           in: query
           name: type
@@ -161,7 +146,6 @@ paths:
                 anyOf:
                   - $ref: '#/components/schemas/Document'
                   - $ref: '#/components/schemas/URL'
-                  - $ref: '#/components/schemas/File'
         '404':
           description: Not Found
         '500':
@@ -188,13 +172,6 @@ components:
               metadata:
                 path: 'https://nave.com/news'
               type: url
-            - id: '1235'
-              name: example.pdf
-              metadata:
-                path: foo/boo/example.pdf
-                mimeType: application/pdf
-                size: 10
-              file: file
       properties:
         type:
           type: string
@@ -221,7 +198,6 @@ components:
           items:
             anyOf:
               - $ref: '#/components/schemas/URL'
-              - $ref: '#/components/schemas/File'
       required:
         - type
         - name
@@ -257,45 +233,3 @@ components:
           metadata:
             path: 'https://nave.com/news'
           type: url
-    File:
-      title: File
-      type: object
-      x-examples:
-        File:
-          id: '1234'
-          name: example.pdf
-          metadata:
-            path: foo/boo/example.pdf
-            mimeType: application/pdf
-            size: 0
-          file: file
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        metadata:
-          type: object
-          required:
-            - path
-            - mimeType
-            - size
-          properties:
-            path:
-              type: string
-            mimeType:
-              type: string
-            size:
-              type: number
-        file:
-          type: string
-          pattern: file
-        type:
-          type: string
-          pattern: file
-      required:
-        - id
-        - name
-        - metadata
-        - file
-        - type
