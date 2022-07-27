@@ -60,6 +60,6 @@
 
 ## 참고
 
-- API는 https://stoplight.io/studio/ 를 사용해서 보시는게 가장 좋습니다.
-- 과제에 대한 구동 방법에 대해서 [README.md](http://README.md) 에 남겨주세요.
-- 시간이 조금 더 있었다면 추가하거나 개선할 수 있는 점을 남겨주세요
+- [Open API spec](./api.yaml) 은 https://editor.swagger.io/ 혹은 https://stoplight.io/studio/ 를 사용해 보실 수 있습니다.
+- 과제 결과물 구동 방법을 프로젝트의 [README.md](http://README.md) 에 남겨주세요.
+- 시간이 조금 더 있었다면 추가하거나 개선할 수 있는 점을 남겨주세요.
