@@ -79,7 +79,6 @@ paths:
                       metadata:
                         doctype: doc
                         creator: 작성자1
-                        origin: paramId123
                       id: '1234'
                     - id: '12345'
                       name: URL리소스
@@ -164,7 +163,6 @@ components:
           metadata:
             doctype: doc
             creator: 작성자
-            origin: 123_origin
           id: '123444'
           links:
             - id: '1234'
@@ -183,13 +181,10 @@ components:
           required:
             - doctype
             - creator
-            - origin
           properties:
             doctype:
               type: string
             creator:
-              type: string
-            origin:
               type: string
         id:
           type: string

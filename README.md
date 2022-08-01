@@ -47,8 +47,6 @@
   - spreadsheet ⇒ sheet
 - creator
   - 랜덤 string 값
-- origin
-  - 랜덤 string 값
 
 #### URL 리소스
 
