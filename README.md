@@ -37,27 +37,30 @@
 
 #### Document 리소스
 
-- Document 형식으로 저장하는 대상은 다음과 같습니다.
-  - application/vnd.google-apps.document
-  - application/vnd.google-apps.presentation
-  - application/vnd.google-apps.spreadsheet
-- docType은 다음과 같이 변환 해 주세요
-  - document ⇒ doc
-  - presentation ⇒ presentation
-  - spreadsheet ⇒ sheet
-- creator
-  - 랜덤 string 값
+- 아래의 Content-Type 을 가지는 리소스들은 Document 리소스로 저장해주세요.
+  - `application/vnd.google-apps.document`
+  - `application/vnd.google-apps.presentation`
+  - `application/vnd.google-apps.spreadsheet`
+- `type` 은 `document` 로 저장해주세요.
+- `metadata.doctype` 은 Content-Type 에 따라 다음과 같이 저장해주세요.
+  - `application/vnd.google-apps.document` ⇒ `doc`
+  - `application/vnd.google-apps.presentation` ⇒ `presentation`
+  - `application/vnd.google-apps.spreadsheet` ⇒ `sheet`
+- `metadata.creator` 은 랜덤 string 값으로 저장해주세요.
 
 #### URL 리소스
 
-- 그밖의 모든 데이터는 URL형식으로 저장하시면 됩니다.
-- 호스트가 Youtube(https://www.youtube.com/watch?v=-{paramId} 는 uri를 https://youtu.be/embed/{paramId} 로 변경해서 저장해 주세요
-- protocol이 없거나 http인 URL은 [https://를](https://를) 붙여서 저장
-- encodeURI는 decode해서 저장해 주세요.
+- Document 리소스가 아닌 모든 리소스는 URL 리소스로 저장해주세요.
+- `type` 은 `url` 로 저장해주세요.
+- 호스트가 Youtube(https://www.youtube.com/watch?v=-{paramId})인 경우는 URI 를 `https://youtu.be/embed/{paramId}` 로 변경해서 저장해주세요.
+- scheme 가 없거나 `http` 인 URL은 `https` scheme 로 지정하여 저장해주세요.
+- encodeURI는 decode해서 저장해주세요.
 
 #### 링크
 
-- 링크는 Document가 아닌 타입에서 Document타입을 대상으로만 가능합니다.
+- 링크는 URL 리소스에서 Document 리소스를 대상으로만 가능합니다.
+  - `from`: URL 리소스
+  - `to`: Document 리소스
 
 ### 기술 스택
 
