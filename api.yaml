@@ -171,6 +171,8 @@ components:
                 path: 'https://nave.com/news'
               type: url
       properties:
+        id:
+          type: string
         type:
           type: string
           pattern: document
@@ -186,24 +188,25 @@ components:
               type: string
             creator:
               type: string
-        id:
-          type: string
         links:
           type: array
           items:
             anyOf:
               - $ref: '#/components/schemas/URL'
       required:
+        - id
         - type
         - name
         - metadata
-        - id
     URL:
       title: URL
       type: object
       properties:
         id:
           type: string
+        type:
+          type: string
+          pattern: url
         name:
           type: string
         metadata:
@@ -213,14 +216,11 @@ components:
           properties:
             path:
               type: string
-        type:
-          type: string
-          pattern: url
       required:
         - id
+        - type
         - name
         - metadata
-        - type
       x-examples:
         URL:
           id: '1234'
