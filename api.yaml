@@ -32,26 +32,26 @@ paths:
                 contentType:
                   type: string
                   description: 리소스의 컨텐츠 타입
-                target:
+                path:
                   type: string
-                  description: 타겟의 URI 패스
+                  description: 리소스의 URI 패스
                 name:
                   type: string
                   description: 사용자가 지정한 이름
               required:
                 - contentType
-                - target
+                - path
                 - name
             x-examples:
               url:
                 value:
                   contentType: plain/text
-                  target: 'https://naver.com/news/123'
+                  path: 'https://naver.com/news/123'
                   name: 네이버
               document:
                 value:
                   contentType: application/vnd.google-apps.document
-                  target: 'https://docs.google.com/1231/3211'
+                  path: 'https://docs.google.com/1231/3211'
                   name: 도큐먼트
             examples: {}
         description: Post the necessary fields for the API to create a new resource.
